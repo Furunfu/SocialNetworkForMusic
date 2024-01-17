@@ -1,0 +1,26 @@
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Playlist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <% for(let i=0; i < userPlaylists.length; i++) { %>
+                    <div class="playlist__sel" data-playlist-id="<%= userPlaylists[i]._id.toString() %>">
+                        <h4>
+                            <%= userPlaylists[i].title %>
+                        </h4>
+                        <p>
+                            <%= userPlaylists[i].songs.length %> Songs
+                        </p>
+                    </div>
+                    <% } %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="donePlaylistBtn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

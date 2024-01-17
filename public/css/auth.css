@@ -1,0 +1,16 @@
+.customchar {
+
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: normal;
+
+}
+#logo {
+    margin-top: 15%;
+}
+#log_in {
+    margin-top: 20%;
+}
+#sign_in {
+    margin-bottom: 10%;
+}

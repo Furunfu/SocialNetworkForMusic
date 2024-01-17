@@ -1,0 +1,206 @@
+<%- include('partials/head.ejs') %>
+
+    <body>
+
+        <%- include('partials/menu.ejs') %>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4>
+                                    <% if (isMe) { %>
+                                        <%= user.name + " " + user.surname %>
+                                            <% } else { %>
+                                                <%= profileUser.name + " " + profileUser.surname %>
+                                                    <% } %>
+                                </h4>
+                                <p class="text-muted">
+                                    <% if (isMe) { %>
+                                        <%= user.email%>
+                                            <% } else { %>
+                                                <%= profileUser.email%>
+                                                    <% } %>
+                                </p>
+                                <h3>Playlists Owner:</h3>
+                                <% for(let i=0; i < profilePlaylists.length; i++) { %>
+                                    <div onclick="window.location.href='/playlist/<%= profilePlaylists[i]._id %>'">
+                                        <div class="play__content">
+                                            <h5>
+                                                <%= profilePlaylists[i].title %>
+                                            </h5>
+                                            <p>
+                                                <%= profilePlaylists[i].songs.length %> Songs
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    <h3>Liked Playlists:</h3>
+                                    <% for(let i=0; i < likedPlaylists.length; i++) { %>
+                                        <div onclick="window.location.href='/playlist/<%= likedPlaylists[i]._id %>'">
+                                            <div class="play__content">
+                                                <h5>
+                                                    <%= likedPlaylists[i].title %>
+                                                </h5>
+                                                <p><%= likedPlaylists[i].songs.length %> Songs</p>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                <% if (isMe) { %>
+                                    <input type="submit" class="btn btn-danger btn-block" value="Delete Profile"
+                                        id="delete"><i class="fas fa-edit"></i>
+                                    <% } %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="profileForm">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <% if (isMe) { %>
+                                            <input type="text" class="form-control" id="name" value="<%= user.name %>">
+                                            <% }else{ %>
+                                                <h5>
+                                                    <%= profileUser.name %>
+                                                </h5>
+                                                <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Surname</label>
+                                        <% if (isMe) { %>
+                                            <input type="text" class="form-control" id="surname"
+                                                value="<%= user.surname %>">
+                                            <% }else{ %>
+                                                <h5>
+                                                    <%= profileUser.surname %>
+                                                </h5>
+                                                <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <% if (isMe) { %>
+                                            <input type="email" class="form-control" id="email"
+                                                value="<%= user.email %>">
+                                            <% }else{ %>
+                                                <h5>
+                                                    <%= profileUser.email %>
+                                                </h5>
+                                                <% } %>
+                                    </div>
+                                    <% if (isMe) { %>
+                                        <div class="form-group">
+                                            <label for="password">Set New Password</label>
+                                            <div class="flexContainer">
+                                                <input type="password" id="password" name="password"
+                                                    class="form-control inputField">
+                                                <button type="submit" id="mostraNascondi">Show</button>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                            <br>
+                                            <label for="genres">Genres</label>
+                                            <% if (isMe) { %>
+                                                <select class="form-select" id="cG" multiple>
+                                                    <% var k %>
+                                                        <% for (let i=0; i < genres.genres.length; i++) { k=0; for (let
+                                                            j=0; j < user.genres.length; j++) {%>
+                                                            <% if (genres.genres[i]===user.genres[j]) { %>
+                                                                <option value="<%= user.genres[j] %>" selected>
+                                                                    <%= user.genres[j] %>
+                                                                        <% k++ %>
+                                                                </option>
+                                                                <% } } %>
+                                                                    <% if (k==0) { %>
+                                                                        <option value="<%= genres.genres[i] %>">
+                                                                            <%= genres.genres[i] %>
+                                                                                <% k++ %>
+                                                                        </option>
+                                                                        <% } } %>
+                                                </select>
+                                                <% } else {%>
+                                                    <% for (let i=0; i < genres.genres.length; i++) { for (let j=0; j <
+                                                        profileUser.genres.length; j++) {%>
+                                                        <% if (genres.genres[i]===profileUser.genres[j]) { %>
+                                                            <h5>
+                                                                <%= profileUser.genres[j] %>
+                                                            </h5>
+                                                            <% } } %>
+
+                                                                <% } %>
+                                                                    <% } %>
+
+                                                                        <br>
+                                                                        <label for="artists">Artists</label>
+                                                                        <% if (isMe) { %>
+                                                                            <select class="form-select" id="cA"
+                                                                                multiple>
+                                                                                <% for (let i=0; i <
+                                                                                    artists.artists.length; i++) { k=0;
+                                                                                    for (let j=0; j <
+                                                                                    user.artists.length; j++) {%>
+                                                                                    <% if
+                                                                                        (artists.artists[i].name===user.artists[j])
+                                                                                        { %>
+                                                                                        <option
+                                                                                            value="<%= user.artists[j] %>"
+                                                                                            selected>
+                                                                                            <%= user.artists[j] %>
+                                                                                                <% k++ %>
+                                                                                        </option>
+                                                                                        <% } } if(k==0) { %>
+                                                                                            <option
+                                                                                                value="<%= artists.artists[i].name %>">
+                                                                                                <%= artists.artists[i].name
+                                                                                                    %>
+                                                                                                    <% k++ %>
+
+                                                                                            </option>
+                                                                                            <% } %>
+                                                                                                <% } %>
+
+
+
+                                                                            </select>
+                                                                            <br>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary"><i
+                                                                                    class="fas fa-save"></i>
+                                                                                Save
+                                                                                Changes</button>
+                                                                            <% } else { %>
+                                                                                <% for (let i=0; i <
+                                                                                    artists.artists.length; i++) { for
+                                                                                    (let j=0; j <
+                                                                                    profileUser.artists.length; j++) {%>
+                                                                                    <% if
+                                                                                        (artists.artists[i].name===profileUser.artists[j])
+                                                                                        { %>
+                                                                                        <h5>
+                                                                                            <%= profileUser.artists[j]
+                                                                                                %>
+                                                                                        </h5>
+
+                                                                                        <% } } } }%>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <% if (isMe) { %>
+   
+            <script src="/js/profile.js"></script>
+
+            <% } %>
+
+
+            <!-- Collegamento ai file JavaScript di Bootstrap (riportato alla fine per migliorare le prestazioni del caricamento della pagina) -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+
+    </html>

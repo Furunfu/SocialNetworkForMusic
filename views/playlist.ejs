@@ -1,0 +1,144 @@
+<%- include('partials/head.ejs') %>
+
+    <body>
+        <%- include('partials/menu.ejs') %>
+
+            <div class="container mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center">
+                            <%= playlistDetails.title %>
+                        </h1>
+                        <h2 class="mb-3">Tag</h2>
+                        <% if (playlistDetails.tags.length===0) { %>
+                            <p>Nessun Tag</p>
+                            <% } else { %>
+                                <ul class="list-group list-group-horizontal mb-4">
+
+                                    <% playlistDetails.tags.forEach(tag=> { %>
+                                        <li class="list-group-item">
+                                            <%= tag %>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                                <% } %>
+                                    <% if (isOwner) { %>
+                                        <div id="singLine">
+                                            <input type="checkbox" id="view" <% if(playlistDetails.isPublished){%>
+                                            checked
+                                            <% } %>>
+                                                <h2 class="mb-3">Public</h2>
+                                        </div>
+                                        <% } %>
+                                            <h3 class="mb-4">Descrizione della playlist</h3>
+                                            <p>
+                                                <%= playlistDetails.description ? playlistDetails.description
+                                                    : 'No Description' %>
+                                            </p>
+
+                                            <% if (isOwner) { %>
+                                                <div class="d-flex justify-content-end mb-4">
+                                                    <button type="button" class="btn btn-primary me-3"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal">Edit</button>
+                                                    <input type="submit" class="btn btn-danger" id="deleteButton"
+                                                        value="Delete playlist">
+                                                </div>
+                                                <% }else{ %>
+                                                    <div class="d-flex justify-content-end mb-4">
+                                                        <button type="button" class="btn btn-primary me-3 likeUnlike__play">
+                                                            <%= isLiked ? 'Unlike Playlist' : 'Like Playlist' %>
+                                                        </button>
+                                                        <% } %>
+                                                    </div>
+                    </div>
+                </div>
+                <div class="container p-4">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+                        <% for(let i=0; i < playlistTracksDetails.length; i++) { %>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img class="" src="<%= playlistTracksDetails[i].image %>" alt="img">
+                                    <div class="card-body">
+                                        <h4>
+                                            <%= playlistTracksDetails[i].name %>
+                                        </h4>
+                                        <p>
+                                            <%= playlistTracksDetails[i].artists[0].name %>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="button" class="btn btn-primary like-btn-song"
+                                            data-bs-toggle="modal" data-bs-target="#myModal"
+                                            data-track-id="<%= playlistTracksDetails[i].id %>">Add</button>
+                                        <% if (isOwner) { %>
+                                            <button type="button" class="btn btn-danger remove"
+                                                data-track-id="<%= playlistTracksDetails[i].id %>">Remove</button>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                                <% if (playlistTracksDetails.length % 5 !==0) { %>
+                                    <% for(let i=0; i < 5 - playlistTracksDetails.length % 5; i++) { %>
+                                        <div class="col"></div>
+                                        <% } %>
+                                            <% } %>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifica playlist</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">Titolo della playlist</label>
+                                        <input type="text" class="form-control" id="title"
+                                            value="<%= playlistDetails.title %>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Descrizione della
+                                            playlist</label>
+                                        <textarea class="form-control" id="description" rows="3"><%= playlistDetails.description %>
+                                    </textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Tag</label>
+                                        <input type="text" class="form-control" id="tags"
+                                            value="<% playlistDetails.tags.forEach(tag=> { %><%= tag %>  <% }); %>">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                <button type="button" class="btn btn-primary" id="saveChange">Salva modifiche</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%- include('partials/addSongToPlaylistModal.ejs') %>
+
+                    <script>
+                        const playlistId = "<%= playlistDetails._id %>";
+                    </script>
+
+                    <script type="module" src="/js/home.js"></script>
+
+                    <% if (isOwner) { %>
+                        <script src="/js/editPlaylist.js"></script>
+                        <script src="/js/removeSongFromPlaylist.js"></script>
+                        <% }else{ %>
+                            <script src="/js/likeUnlikePlaylist.js"></script>
+                            <% } %>
+
+    </body>
+
+    </html>

@@ -1,0 +1,82 @@
+<%- include('partials/head.ejs') %>
+
+    <body>
+
+        <%- include('partials/menu.ejs') %>
+            <div class="container p-4">
+                <h1>BEST SONG OF THE MONTH</h1>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+                    <% for(let i=0; i < Math.min(10, tracks.length); i++) { %>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="<%= tracks[i].image %>" class="card-img-top w-100" alt="...">
+                                <div class="card-body">
+                                    <h4>
+                                        <%= tracks[i].name %>
+                                    </h4>
+                                    <p>
+                                        <%= tracks[i].artists[0].name %>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" class="btn btn-primary like-btn-song"
+                                        data-bs-toggle="modal" data-bs-target="#myModal"
+                                        data-track-id="<%= tracks[i].id %>">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% if (tracks.length % 5 !==0) { %>
+                                <% for(let i=0; i < 5 - tracks.length % 5; i++) { %>
+                                    <div class="col"></div>
+                                    <% } %>
+                                        <% } %>
+                </div>
+            </div>
+            <div class="container p-4">
+                <h1>BEST ARTISTS OF THE MONTH</h1>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+                    <% for(let i=0; i < Math.min(10, artists.length); i++) { %>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="<%= artists[i].image %>" class="card-img-top w-100" alt="...">
+                                <div class="card-body">
+                                    <h4>
+                                        <%= artists[i].name %>
+                                    </h4>
+                                    <p>Artist</p>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+            <div class="container p-4">
+                <h1>NEW RELEASES</h1>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+                    <% for(let i=0; i < Math.min(10, newReleases.length); i++) { %>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="<%= newReleases[i].image %>" class="card-img-top w-100" alt="...">
+                                <div class="card-body">
+                                    <h4>
+                                        <%= newReleases[i].name %>
+                                    </h4>
+                                    <p>
+                                        <%= newReleases[i].type %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+            <%- include('partials/addSongToPlaylistModal.ejs') %>
+
+            <!-- Collegamento ai file JavaScript di Bootstrap (riportato alla fine per migliorare le prestazioni del caricamento della pagina) -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script type="module" src="js/home.js"></script>
+
+    </body>
+
+    </html>

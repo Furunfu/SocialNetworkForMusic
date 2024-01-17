@@ -1,0 +1,7 @@
+.flexContainer {
+    display: flex;
+}
+
+.inputField {
+    flex: 1;
+}

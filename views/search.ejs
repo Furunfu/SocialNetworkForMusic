@@ -1,0 +1,43 @@
+<%- include('partials/head.ejs') %>
+
+    <body>
+        <%- include('partials/menu.ejs') %>
+
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" id="searchInput" aria-label="Search">
+              </form>
+            </div>
+          </nav>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-song-tab" data-type="track"
+                    data-bs-toggle="tab" data-bs-target="#nav-song" type="button" role="tab"
+                    aria-controls="nav-song" aria-selected="true">Song</button>
+                <button class="nav-link" id="nav-album-tab" data-type="album"
+                    data-bs-toggle="tab" data-bs-target="#nav-album" type="button"
+                    role="tab" aria-controls="nav-album"
+                    aria-selected="false">Album</button>
+                <button class="nav-link" id="nav-artist-tab" data-type="artist"
+                    data-bs-toggle="tab" data-bs-target="#nav-artist" type="button"
+                    role="tab" aria-controls="nav-artist"
+                    aria-selected="false">Artists</button>
+                <button class="nav-link" id="nav-playlist-tab" data-type="playlist"
+                    data-bs-toggle="tab" data-bs-target="#nav-playlist" type="button"
+                    role="tab" aria-controls="nav-playlist"
+                    aria-selected="false">Playlist</button>
+                <button class="nav-link" id="nav-user-tab" data-type="user"
+                    data-bs-toggle="tab" data-bs-target="#nav-user" type="button" role="tab"
+                    aria-controls="nav-user" aria-selected="false">User</button>
+            </div>
+        </nav>
+        <div id="addStuff"></div>
+        <%- include('partials/addSongToPlaylistModal.ejs') %>
+
+                <script type="module" src="js/search/main.js"></script>
+                <script type="module" src="js/home.js"></script>
+
+    </body>
+
+    </html>

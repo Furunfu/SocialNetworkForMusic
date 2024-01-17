@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<body>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-12" id="sign_in">
+                <img src="./IMG/SNM-transformed.png" alt="logo SNM" width="30%" height="auto">
+                <br>
+                <h2 class="customchar">Social network where you can create and share your playlist to other people
+                </h2>
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="email" placeholder="email">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="password" type="password" class="form-control" placeholder="Password"
+                            aria-label="Password" aria-describedby="basic-addon1">
+                        <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"
+                            aria-label="Confirm Password" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="name" type="text" class="form-control" placeholder="Name" aria-label="Name"
+                            aria-describedby="basic-addon1">
+                        <input id="surname" type="text" class="form-control" placeholder="Surname" aria-label="Surname"
+                            aria-describedby="basic-addon1">
+                    </div>
+                    <p class="customchar">SELECT YOUR FAVOURITE GENRES
+                    </p>
+                    <select class="form-select" id="cG" multiple>
+                        <% for (let i=0; i < genres.genres.length; i++) { %>
+                            <option value="<%= genres.genres[i] %>">
+                                <%= genres.genres[i] %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <br>
+                    <p class="customchar">SELECT YOUR FAVOURITE ARTISTS
+                    </p>
+                    <select class="form-select" id="cA" multiple>
+                        <% for (let i=0; i < artists.artists.length; i++) { %>
+                            <option value="<%= artists.artists[i].name %>">
+                                <%= artists.artists[i].name %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <br>
+                    <input type="submit" class="btn btn-primary w-100" value="Sign in">
+                    <hr>
+                    <a href="/login" class="btn btn-light w-100">Log in</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/register.js"></script>
+</body>
+
+</html>
