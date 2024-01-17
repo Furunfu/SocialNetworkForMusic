@@ -47,8 +47,8 @@ exports.updateTitle = async (req, res) => {
 
         // Validazione manuale del titolo
         const title = req.body.title;
-        if (!title || typeof title !== 'string' || title.length < 3 || title.length > 128) {
-            return res.status(400).send("Il titolo deve essere una stringa tra 3 e 128 caratteri.");
+        if (!title || typeof title !== 'string' || title.length < 1 || title.length > 128) {
+            return res.status(400).send("Il titolo deve essere una stringa tra 1 e 128 caratteri.");
         }
 
         const collection = await client.db("pwm").collection("playlists");
